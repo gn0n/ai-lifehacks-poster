@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My AI Toolkit — My Favourite AI Lifehacks</title>
+<style>
+  :root{
+    --navy:#102A43; --teal:#0E9F8E; --teal-soft:#D9F5EF;
+    --coral:#FF6B5E; --coral-soft:#FFE4DF; --mustard:#F2C14E;
+    --cream:#FFF8EC; --white:#fff; --muted:#46607A;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--cream); color:var(--navy);
+    font-family:Arial, Helvetica, sans-serif; line-height:1.45;
+  }
+  .wrap{ max-width:980px; margin:0 auto; padding:0 20px 60px; }
+
+  /* hero */
+  .hero{
+    position:relative; overflow:hidden; margin:0 -20px 34px;
+    padding:54px 40px 46px; background:var(--navy); color:#fff;
+  }
+  .hero::before{
+    content:""; position:absolute; width:320px; height:320px;
+    right:-90px; top:-130px; border-radius:50%;
+    background:var(--teal); opacity:.22;
+  }
+  .hero::after{
+    content:""; position:absolute; width:190px; height:190px;
+    right:90px; bottom:-120px; border-radius:50%;
+    background:var(--coral); opacity:.25;
+  }
+  .tag{
+    display:inline-block; font-size:11px; font-weight:bold;
+    letter-spacing:2.5px; text-transform:uppercase; color:var(--mustard);
+    border-left:4px solid var(--coral); padding-left:12px;
+  }
+  .hero h1{
+    font-family:"Arial Black",Arial,sans-serif; font-size:clamp(46px,11vw,86px);
+    line-height:.9; letter-spacing:-3px; margin:18px 0 10px;
+    text-transform:uppercase; position:relative; z-index:1;
+  }
+  .hero h1 em{ font-style:normal; color:var(--teal); }
+  .hero p{
+    font-size:clamp(16px,3.5vw,22px); font-weight:bold; margin:0 0 22px;
+    position:relative; z-index:1;
+  }
+  .chips{ display:flex; flex-wrap:wrap; gap:9px; position:relative; z-index:1; }
+  .chips span{
+    font-size:11px; font-weight:bold; letter-spacing:1.2px;
+    text-transform:uppercase; color:var(--navy); background:var(--mustard);
+    padding:7px 12px; border-radius:30px;
+  }
+  .chips span:nth-child(2){ background:var(--teal-soft); }
+  .chips span:nth-child(3){ background:var(--coral-soft); }
+
+  /* sections */
+  section{ margin-bottom:36px; }
+  h2{
+    font-size:14px; letter-spacing:2.6px; text-transform:uppercase;
+    margin:0 0 18px; padding-bottom:8px; border-bottom:3px solid var(--teal);
+    display:flex; align-items:center; gap:10px;
+  }
+  h2::before{ content:""; width:11px; height:11px; background:var(--coral);
+    transform:rotate(45deg); flex:none; }
+
+  /* tool cards */
+  .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:14px; }
+  .card{
+    background:#fff; padding:18px; border-top:5px solid var(--c,var(--teal));
+    transition:transform .2s ease, box-shadow .2s ease;
+    animation:rise .5s both;
+  }
+  .card:hover{ transform:translateY(-6px); box-shadow:0 10px 0 var(--navy); }
+  .card:nth-child(1){ --c:var(--teal); animation-delay:.05s; }
+  .card:nth-child(2){ --c:var(--coral); animation-delay:.1s; }
+  .card:nth-child(3){ --c:var(--mustard); animation-delay:.15s; }
+  .card:nth-child(4){ --c:var(--navy); animation-delay:.2s; }
+  .card:nth-child(5){ --c:var(--teal); animation-delay:.25s; }
+  .ic{
+    width:46px; height:46px; display:flex; align-items:center;
+    justify-content:center; background:var(--teal-soft); margin-bottom:12px;
+  }
+  .ic svg{ width:28px; height:28px; }
+  .card h3{ font-size:19px; margin:0 0 4px; letter-spacing:-.3px; }
+  .card p{ font-size:14px; color:var(--muted); margin:0; }
+
+  /* lifehacks */
+  .hacks{ list-style:none; padding:0; margin:0; counter-reset:h; display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; }
+  .hacks li{
+    counter-increment:h; background:#fff; padding:16px 16px 16px 58px;
+    position:relative; font-size:15px; font-weight:bold;
+    border-left:4px solid var(--coral);
+  }
+  .hacks li::before{
+    content:counter(h,decimal-leading-zero); position:absolute; left:14px; top:15px;
+    color:var(--teal); font-size:15px; font-weight:bold;
+  }
+
+  /* two columns */
+  .two{ display:grid; grid-template-columns:1fr 1fr; gap:34px; }
+  .word{ border-bottom:1px solid #D5E0E7; padding:7px 0; font-size:14px; }
+  .word b{ color:var(--teal); display:inline-block; min-width:100px; }
+  .rule{ background:#fff; padding:12px 14px; margin-bottom:10px; font-size:14px; }
+  .rule b{ display:block; color:var(--coral); font-size:12px; letter-spacing:1px;
+    text-transform:uppercase; margin-bottom:3px; }
+  .rule em{ font-style:italic; }
+
+  footer{
+    margin-top:46px; background:var(--navy); color:#fff;
+    padding:24px 28px; display:flex; flex-wrap:wrap; gap:18px;
+    align-items:center; justify-content:space-between;
+  }
+  footer b{ font-size:17px; letter-spacing:1px; }
+  footer span{ font-size:12px; color:var(--mustard); letter-spacing:1px; }
+  @keyframes rise{ from{ transform:translateY(16px); } to{ transform:none; } }
+  @media (max-width:640px){ .two{ grid-template-columns:1fr; } .hero{ padding:40px 24px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="tag">My favourite AI lifehacks</span>
+    <h1>MY AI<br><em>TOOLKIT</em></h1>
+    <p>AI tools for studying and being productive</p>
+    <div class="chips"><span>10 words</span><span>5 grammar rules</span><span>5 lifehacks</span></div>
+  </header>
+
+  <section>
+    <h2>5 tools I use</h2>
+    <div class="grid">
+      <article class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#102A43" stroke-width="2"><path d="M4 5h16v12H8l-4 3z"/><path d="M8 9h8M8 13h5"/></svg></div>
+        <h3>ChatGPT</h3><p>ideas and short notes</p>
+      </article>
+      <article class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#102A43" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 15 3-4 3 3 4-6"/></svg></div>
+        <h3>Canva AI</h3><p>posters and flashcards</p>
+      </article>
+      <article class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#102A43" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c5 5 5 13 0 18M12 3c-5 5-5 13 0 18"/></svg></div>
+        <h3>Gemini</h3><p>plans and answers</p>
+      </article>
+      <article class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#102A43" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m8 12 3 3 5-6"/></svg></div>
+        <h3>Grammarly</h3><p>English mistakes</p>
+      </article>
+      <article class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#102A43" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 14v3M14 20h3M20 20h1"/></svg></div>
+        <h3>QR Generator</h3><p>quick links</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>My 5 AI lifehacks</h2>
+    <ol class="hacks">
+      <li>I ask AI for a short summary of my text.</li>
+      <li>I make cards for my new English words.</li>
+      <li>I translate hard words with an AI app.</li>
+      <li>I plan my day with a short checklist.</li>
+      <li>I open my AI materials with a QR code.</li>
+    </ol>
+  </section>
+
+  <div class="two">
+    <section>
+      <h2>10 new words</h2>
+      <div class="word"><b>1. tool</b> a thing that helps you do work</div>
+      <div class="word"><b>2. summary</b> a short text with the main ideas</div>
+      <div class="word"><b>3. note</b> a short record of important facts</div>
+      <div class="word"><b>4. flashcard</b> a card with a word and its meaning</div>
+      <div class="word"><b>5. mistake</b> something you do wrong</div>
+      <div class="word"><b>6. checklist</b> a list of things to do</div>
+      <div class="word"><b>7. schedule</b> a plan of your time</div>
+      <div class="word"><b>8. focus</b> to think about one thing only</div>
+      <div class="word"><b>9. translate</b> to say words in another language</div>
+      <div class="word"><b>10. useful</b> very helpful</div>
+    </section>
+    <section>
+      <h2>5 grammar rules</h2>
+      <div class="rule"><b>Present Simple</b><em>I use AI every day.</em></div>
+      <div class="rule"><b>There is / There are</b><em>There are five AI tools here.</em></div>
+      <div class="rule"><b>Comparative / Superlative</b><em>AI is faster than a book. It is the best helper.</em></div>
+      <div class="rule"><b>Gerund vs Infinitive</b><em>I like making notes. I want to save time.</em></div>
+      <div class="rule"><b>Articles: a / an / the</b><em>I use a laptop and an app. The app is free.</em></div>
+    </section>
+  </div>
+
+  <footer>
+    <div><b>SCANNED FROM THE POSTER</b><br><span>General English Elementary · A1 · University students</span></div>
+    <div><b>AI IS MY STUDY FRIEND</b><br><span>Fast · Easy · Useful</span></div>
+  </footer>
+
+</div>
+</body>
+</html>
